@@ -1,16 +1,16 @@
-T = 10
+T = 100
 dt = 0.01
 t = seq(0,T,dt)
 ##Wiener process
 w = rnorm(n = length(t) - 1, sd = sqrt(dt))
-##diffusion process
-N =T/dt
-x = 0
-X = rep(0,N)
 ##coefficients
 alpha = 3
 beta = 5
 theta = 1
+##diffusion process
+N =T/dt
+x = alpha/(alpha+beta)
+X = rep(0,N)
 ##Euler-Maruyama
 for (i in 1:N) {
   mu = theta*(alpha/(alpha+beta)-x)
@@ -18,4 +18,5 @@ for (i in 1:N) {
   x = x + mu*dt + sigma*w[i]
   X[i]=x
 }
+X=c(alpha/(alpha+beta),X)
 plot(type="l",X)
